@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kcom/Page/ChatPage.dart';
@@ -7,6 +5,7 @@ import 'package:kcom/Components/Chat_Card1.dart';
 import 'package:kcom/Components/Chat_Card2.dart';
 import 'package:intl/intl.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
+import 'package:http/http.dart' as http;
 
 class komunitasPage extends StatefulWidget {
   komunitasPage({Key? key}) : super(key: key);

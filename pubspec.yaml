@@ -40,6 +40,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   intl: ^0.17.0
   web_socket_channel: ^2.2.0
+  http:
 
 dev_dependencies:
   flutter_test:
