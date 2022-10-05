@@ -1,9 +1,55 @@
+import 'dart:html';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kcom/Page/ChatPage.dart';
+import 'package:kcom/Components/Chat_Card1.dart';
+import 'package:kcom/Components/Chat_Card2.dart';
+import 'package:intl/intl.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
-class komunitasPage extends StatelessWidget {
-  const komunitasPage({Key? key}) : super(key: key);
+class komunitasPage extends StatefulWidget {
+  komunitasPage({Key? key}) : super(key: key);
+
+  @override
+  State<komunitasPage> createState() => _komunitasPage();
+}
+
+class _komunitasPage extends State<komunitasPage> {
+  final myController = TextEditingController();
+  final myTextViewController = TextEditingController();
+  FocusNode myFocusNode = FocusNode();
+
+  final _channel = WebSocketChannel.connect(
+    Uri.parse('wss://echo.websocket.events'),
+  );
+
+  @override
+  void dispose() {
+    _channel.sink.close();
+    myController.dispose();
+    myTextViewController.dispose();
+    super.dispose();
+  }
+
+  void _sendMessage() {
+    if (myController.text.isNotEmpty) {
+      _channel.sink.add(myController.text);
+    }
+  }
+
+  List messages = [];
+  AddMessage(message) {
+    DateTime dateTime = DateTime.now();
+    String formattedTime = DateFormat('kk:mm a').format(dateTime);
+    String formattedDate = DateFormat('MMMM, EEE d, yyyy').format(dateTime);
+    if (message.toString().length == 0) return;
+    messages.add(ChatCard2(
+        message: message,
+        time: formattedTime,
+        date: formattedDate,
+        username: "Hamaya Toyo"));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -12,242 +58,121 @@ class komunitasPage extends StatelessWidget {
         scrollDirection: Axis.vertical,
         child: Stack(
           children: [
-            Container(
-              child: Image(
-                width: double.infinity,
-                height: 150,
-                image: AssetImage("assets/images/komunitas.png"),
-                fit: BoxFit.cover,
-              ),
+            const Image(
+              width: double.infinity,
+              height: 150,
+              image: AssetImage("assets/images/komunitas.png"),
+              fit: BoxFit.cover,
             ),
             Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 87,
                 ),
+                //Comunity Line
                 Row(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width: 150,
                     ),
-                    Text(
-                      "Komunitas",
+                    const Text(
+                      "Community",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 18,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 112,
                     ),
-                    Container(
-                      child: GestureDetector(
-                        onTap: (() {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => ChatPage(),
-                            ),
-                          );
-                        }),
-                        child: Icon(
-                          CupertinoIcons.chat_bubble_2_fill,
-                          color: Colors.white,
-                          size: 30,
-                        ),
+                    GestureDetector(
+                      onTap: (() {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const ChatPage(),
+                          ),
+                        );
+                      }),
+                      child: const Icon(
+                        CupertinoIcons.chat_bubble_2_fill,
+                        color: Colors.white,
+                        size: 30,
                       ),
                     ),
                   ],
                 ),
-                SizedBox(
+                //Space_Margin Top
+                const SizedBox(
                   height: 10,
                 ),
+
+                //Rounded Top Tip
                 Container(
                   width: double.infinity,
                   height: 25,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       color: Color(0xFFfafafa),
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(15),
                           topRight: Radius.circular(15))),
                 ),
+
+                //Message Input Container
                 Container(
-                  padding:
-                      EdgeInsets.only(top: 0, right: 20, left: 20, bottom: 20),
+                  padding: const EdgeInsets.only(
+                      top: 0, right: 20, left: 20, bottom: 20),
                   child: TextField(
+                    autofocus: true,
+                    focusNode: myFocusNode,
+                    controller: myController,
+                    onSubmitted: (value) {
+                      setState(() {
+                        AddMessage(value);
+                        myController.clear();
+                        myFocusNode.requestFocus();
+                        _sendMessage();
+                      });
+                    },
                     decoration: InputDecoration(
-                      suffixIcon: Icon(Icons.send),
-                      hintText: "What's on your mind",
+                      suffixIcon: Padding(
+                          padding: const EdgeInsetsDirectional.only(end: 12.0),
+                          child: GestureDetector(
+                              child: const Icon(Icons.send),
+                              onTap: () => {
+                                    setState(() {
+                                      AddMessage(myController.text);
+                                      myController.clear();
+                                      myFocusNode.requestFocus();
+                                      _sendMessage();
+                                    }),
+                                  })),
+                      //suffixIcon: Icon(Icons.send),
+                      hintText: "What's on your mind.",
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10)),
                     ),
                   ),
                 ),
+
+                //Main Message Container
                 SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  child: Container(
-                    width: 336,
-                    height: 300,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black12,
-                          spreadRadius: 5,
-                          blurRadius: 5,
-                        )
-                      ],
-                    ),
+                    scrollDirection: Axis.vertical,
                     child: Column(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.only(top: 16, left: 20),
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  CircleAvatar(
-                                    backgroundColor:
-                                        Color.fromARGB(255, 1, 70, 128),
-                                    child: Text("U1"),
-                                  ),
-                                  SizedBox(
-                                    width: 11,
-                                  ),
-                                  Text("User Satu"),
-                                  SizedBox(
-                                    width: 12,
-                                  ),
-                                  Icon(
-                                    Icons.circle,
-                                    size: 6,
-                                  ),
-                                  SizedBox(
-                                    width: 12,
-                                  ),
-                                  Text("1h"),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 8,
-                              ),
-                              Text(
-                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Container(
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.favorite,
-                                      color: Colors.red,
-                                    ),
-                                    Text("10"),
-                                    SizedBox(
-                                      width: 21,
-                                    ),
-                                    Icon(
-                                      CupertinoIcons.chat_bubble_fill,
-                                      color: Colors.green,
-                                    ),
-                                    Text("1"),
-                                  ],
-                                ),
-                              ),
-                            ],
+                        //crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          StreamBuilder(
+                            stream: _channel.stream,
+                            builder: (context, snapshot) {
+                              return Text(
+                                  snapshot.hasData ? '${snapshot.data}' : '');
+                            },
                           ),
-                        ),
-                        Divider(
-                          thickness: 1,
-                          color: Color(0xFFB8B8B8),
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(top: 0, left: 20),
-                          child: Row(
-                            children: [
-                              Container(
-                                child: Icon(Icons.favorite_border_outlined),
-                              ),
-                              SizedBox(
-                                width: 3,
-                              ),
-                              Text("Like"),
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Container(
-                                child: Icon(CupertinoIcons.chat_bubble),
-                              ),
-                              SizedBox(
-                                width: 3,
-                              ),
-                              Text("Comment"),
-                            ],
-                          ),
-                        ),
-                        Divider(
-                          thickness: 1,
-                          color: Color(0xFFB8B8B8),
-                        ),
-                        Column(
-                          children: [
-                            Container(
-                              padding: EdgeInsets.only(top: 0, left: 39),
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      CircleAvatar(
-                                        radius: 12,
-                                        backgroundColor:
-                                            Color.fromARGB(255, 1, 70, 128),
-                                        child: Text("U5"),
-                                      ),
-                                      SizedBox(
-                                        width: 7,
-                                      ),
-                                      Text(
-                                        "User lima",
-                                        style: TextStyle(
-                                          fontSize: 10,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 4,
-                                      ),
-                                      Icon(
-                                        Icons.circle,
-                                        size: 6,
-                                      ),
-                                      SizedBox(
-                                        width: 4,
-                                      ),
-                                      Text(
-                                        "1h",
-                                        style: TextStyle(
-                                          fontSize: 10,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 6,
-                                  ),
-                                  Text(
-                                      "Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                          if (messages.length > 0)
+                            messages[0].setShowTimebar(true),
+                          for (int i = 1; i < messages.length; i++)
+                            messages[i].setShowTimebar(false),
+                          //for (var val in messages) val.setShowTimebar(false);
+                        ])),
               ],
             ),
           ],

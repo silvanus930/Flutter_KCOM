@@ -40,7 +40,7 @@ class NewChatPage extends StatelessWidget {
                     width: 120,
                   ),
                   Text(
-                    "Chat Baru",
+                    "New Chat",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 18,
@@ -80,7 +80,7 @@ class NewChatPage extends StatelessWidget {
                                 vertical: 0, horizontal: 15),
                             filled: true,
                             fillColor: Colors.white,
-                            hintText: "Cari kontak pengguna",
+                            hintText: "Search user contact",
                             hintStyle: TextStyle(
                               fontSize: 12,
                               color: Color(0xFF1CA4C1),

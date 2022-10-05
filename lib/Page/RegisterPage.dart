@@ -39,7 +39,7 @@ class RegisterPage extends StatelessWidget {
                               EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                           filled: true,
                           fillColor: Colors.white,
-                          hintText: "Nama",
+                          hintText: "Name",
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                           ),
@@ -70,7 +70,7 @@ class RegisterPage extends StatelessWidget {
                               EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                           filled: true,
                           fillColor: Colors.white,
-                          hintText: "Alamat",
+                          hintText: "Address",
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                           ),
@@ -85,7 +85,7 @@ class RegisterPage extends StatelessWidget {
                               EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                           filled: true,
                           fillColor: Colors.white,
-                          hintText: "Kata Sandi",
+                          hintText: "Password",
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                           ),
@@ -100,7 +100,7 @@ class RegisterPage extends StatelessWidget {
                               EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                           filled: true,
                           fillColor: Colors.white,
-                          hintText: "Konfirmasi Kata Sandi",
+                          hintText: "Confirm Password",
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                           ),
@@ -137,7 +137,7 @@ class RegisterPage extends StatelessWidget {
                     );
                   }),
                   child: Text(
-                    "Sudah punya akun?",
+                    "Already have an account?",
                     style: TextStyle(color: Colors.white),
                   ),
                 ),

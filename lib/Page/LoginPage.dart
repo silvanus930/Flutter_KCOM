@@ -47,7 +47,7 @@ class loginPage extends StatelessWidget {
                     ),
                     TextField(
                       decoration: InputDecoration(
-                        hintText: "Kata Sandi",
+                        hintText: "Password",
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.only(
                               bottomLeft: Radius.circular(10),
@@ -71,7 +71,7 @@ class loginPage extends StatelessWidget {
                   );
                 }),
                 child: Text(
-                  "Lupa kata sandi?",
+                  "Forgot password?",
                   style: TextStyle(color: Colors.white),
                 ),
               ),
@@ -103,7 +103,7 @@ class loginPage extends StatelessWidget {
                   );
                 }),
                 child: Text(
-                  "Belum punya akun?",
+                  "Don't have an account yet?",
                   style: TextStyle(color: Colors.white),
                 ),
               ),

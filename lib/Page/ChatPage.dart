@@ -98,7 +98,7 @@ class ChatPage extends StatelessWidget {
                                 vertical: 0, horizontal: 15),
                             filled: true,
                             fillColor: Colors.white,
-                            hintText: "Cari Pesan",
+                            hintText: "Search Messages",
                             hintStyle: TextStyle(
                               fontSize: 12,
                               color: Color(0xFF1CA4C1),
