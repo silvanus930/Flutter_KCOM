@@ -1,6 +1,7 @@
-import 'Chat.dart';
 import 'package:flutter/material.dart';
 import 'package:kcom/Constants/constants.dart';
+
+import 'message_componens/Chat.dart';
 
 class ChatCard extends StatelessWidget {
   const ChatCard({

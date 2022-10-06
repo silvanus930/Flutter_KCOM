@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 class ChatCard2 extends StatelessWidget {
-  const ChatCard2({
+  const ChatCard2(demeChatMessag, {
     Key? key,
     required this.username,
     required this.message,

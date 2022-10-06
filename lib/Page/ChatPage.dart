@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kcom/Components/body.dart';
 import 'package:kcom/Page/NewChatPage.dart';
 
 class ChatPage extends StatelessWidget {
@@ -8,6 +9,8 @@ class ChatPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: Body(),
+      /*
       body: Stack(
         children: [
           Container(
@@ -113,7 +116,7 @@ class ChatPage extends StatelessWidget {
                       SingleChildScrollView(
                         child: Container(
                           child: Column(
-                            children: [],
+                            children: [Body()],
                           ),
                         ),
                       ),
@@ -121,10 +124,13 @@ class ChatPage extends StatelessWidget {
                   ),
                 ),
               ),
+              //Body(),
             ],
           ),
         ],
       ),
+    */
     );
+    
   }
 }

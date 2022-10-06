@@ -53,8 +53,8 @@ class _komunitasPage extends State<komunitasPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
+      body: Container(
+        //scrollDirection: Axis.vertical,
         child: Stack(
           children: [
             const Image(
@@ -176,7 +176,7 @@ class _komunitasPage extends State<komunitasPage> {
             ),
           ],
         ),
-      ),
+      ), 
     );
   }
 }
